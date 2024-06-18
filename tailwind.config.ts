@@ -17,6 +17,12 @@ const config: Config = {
         primary: "var(--primary)",
       },
     },
+    extend: {
+      borderRadius: {
+        main: "var(--rounded-main)",
+        large: "var(--rounded-large)",
+      },
+    },
   },
   plugins: [],
 };
