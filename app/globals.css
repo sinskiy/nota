@@ -4,12 +4,14 @@
 
 :root {
   color-scheme: dark;
+
   --background: black;
   --surface: #11140f;
   --text: #e1e4da;
   --text-variant: #c2c8bc;
   --primary: #a4d397;
   --on-primary: #10380c;
+
   --rounded-main: 0.75rem;
   --rounded-large: 9999px;
 }
