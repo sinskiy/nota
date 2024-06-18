@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --background: black;
+  --surface: #c2c8bc;
+  --text: #e1e4da;
+  --text-variant: #c2c8bc;
+  --primary: #a4d397;
+  --on-primary: #10380c;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+}
