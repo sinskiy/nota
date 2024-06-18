@@ -14,6 +14,11 @@ export default function Home() {
     const savedNotes = localStorage.notes;
     const parsedNotes = savedNotes ? JSON.parse(savedNotes) : [];
     setNotes(parsedNotes);
+
+    const todayKey = getTodayKey();
+    if (todayKey in parsedNotes) {
+      setTodayText(parsedNotes[todayKey]);
+    }
   }, []);
 
   function handleTodayTextSubmit(e: FormEvent<HTMLFormElement>): void {
@@ -22,15 +27,14 @@ export default function Home() {
     if (todayText.length === 0) return;
 
     const todayKey = getTodayKey();
-    if (todayKey in notes) return;
 
     const newNotes = { ...notes, [todayKey]: todayText };
     setNotes(newNotes);
     localStorage.notes = JSON.stringify(newNotes);
   }
   return (
-    <main className="px-4 py-8 grid gap-8">
-      {!(getTodayKey() in notes) && (
+    <main className="max-w-[75ch] m-auto px-4 py-8 grid gap-8">
+      {
         <section>
           <h2>Daily note</h2>
           <form
@@ -55,7 +59,7 @@ export default function Home() {
             </button>
           </form>
         </section>
-      )}
+      }
       {Object.keys(notes).length ? (
         <section>
           <h2>Previous days</h2>
