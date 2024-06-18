@@ -5,14 +5,73 @@
 :root {
   color-scheme: dark;
   --background: black;
-  --surface: #c2c8bc;
+  --surface: #11140f;
   --text: #e1e4da;
   --text-variant: #c2c8bc;
   --primary: #a4d397;
   --on-primary: #10380c;
+  --rounded-main: 0.75rem;
+  --rounded-large: 9999px;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
   background-color: var(--background);
   color: var(--text);
+}
+
+h2 {
+  margin-bottom: 1rem;
+
+  font-size: 1.5rem;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.card {
+  padding: 1rem;
+
+  background-color: var(--surface);
+  color: var(--text);
+  border-radius: var(--rounded-main);
+}
+
+textarea {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.25px;
+  font-weight: 400;
+}
+textarea::placeholder {
+  color: var(--text);
+  opacity: 0.7;
+}
+textarea:focus {
+  border: none;
+  outline: 1px solid var(--primary);
+}
+
+button {
+  width: fit-content;
+  padding: 0.5rem 3rem;
+
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border-radius: var(--rounded-large);
+
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.1px;
+  font-weight: 500;
+
+  transition: filter 150ms, transform 100ms;
+}
+button:hover {
+  filter: brightness(1.25);
+}
+button:active {
+  transform: scale(0.95);
 }
