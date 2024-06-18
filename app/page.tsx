@@ -10,22 +10,29 @@ export default function Home() {
             className="card"
             rows={6}
             placeholder="Today I accomplished a lot. I did this and this"
+            required
           ></textarea>
           <button type="submit" className="justify-self-end">
             Save
           </button>
         </form>
       </section>
-      {/* <section>
+      <section>
         <h2>Previous days</h2>
-        <input type="date" name="date" id="date" />
+        {/* <input type="date" name="date" id="date" />
         <h3>Note</h3>
         <p>
           Contradictions do not exist. Whenever you think that you are facing a
           contradiction, check your premises. You will find that one of them is
           wrong.
+        </p> */}
+        <h3>{new Date().toLocaleDateString()}</h3>
+        <p>
+          Contradictions do not exist. Whenever you think that you are facing a
+          contradiction, check your premises. You will find that one of them is
+          wrong.
         </p>
-      </section> */}
+      </section>
     </main>
   );
 }

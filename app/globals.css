@@ -30,6 +30,20 @@ h2 {
   line-height: 1;
   font-weight: 400;
 }
+h3 {
+  margin-bottom: 0.5rem;
+
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.15px;
+  font-weight: 500;
+}
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+}
 
 .card {
   padding: 1rem;
@@ -70,7 +84,7 @@ button {
   transition: filter 150ms, transform 100ms;
 }
 button:hover {
-  filter: brightness(1.25);
+  filter: brightness(1.1);
 }
 button:active {
   transform: scale(0.95);
