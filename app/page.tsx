@@ -22,7 +22,7 @@ export default function Home() {
     const parsedNotes = savedNotes ? JSON.parse(savedNotes) : [];
     setNotes(parsedNotes);
 
-    const todayKey = getTodayKey();
+    const todayKey = getDateKey();
     if (todayKey in parsedNotes) {
       setTodayText(parsedNotes[todayKey]);
     }
@@ -35,7 +35,7 @@ export default function Home() {
 
     if (todayText.length === 0) return;
 
-    const todayKey = getTodayKey();
+    const todayKey = getDateKey();
 
     const newNotes = { ...notes, [todayKey]: todayText };
     setNotes(newNotes);
@@ -63,6 +63,6 @@ export default function Home() {
   );
 }
 
-function getTodayKey(): string {
-  return new Date().toDateString();
+export function getDateKey(date?: Date): string {
+  return new Date(date ?? Date.now()).toDateString();
 }

@@ -1,17 +1,36 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
-interface Props {}
+interface Props {
+  initialDate: Date;
+  setDate: SetState<Date | null>;
+}
 
-export default function Calendar({}: Props) {
+export default function Calendar({ initialDate, setDate }: Props) {
   const currentDay = new Date().getDate();
   const currentMonth = new Date().getMonth();
-  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
-  const [selectedYear, setSelectedYear] = useState(endYear);
-  const [selectedDay, setSelectedDay] = useState<null | number>(currentDay);
+
+  const [selectedMonth, setSelectedMonth] = useState(initialDate.getMonth());
+  const [selectedYear, setSelectedYear] = useState(initialDate.getFullYear());
+  const [selectedDay, setSelectedDay] = useState<null | number>(
+    initialDate.getDate()
+  );
+  // I use selectedMonth as an example for typescript
+  function handleMonthOrYearChange(
+    e: ChangeEvent<HTMLSelectElement>,
+    setMonthOrYear: SetState<typeof selectedMonth>
+  ) {
+    const formattedMonthOrYear = Number(e.target.value);
+    setMonthOrYear(formattedMonthOrYear);
+
+    setSelectedDay(null);
+  }
 
   useEffect(() => {
-    setSelectedDay(null);
-  }, [selectedMonth, selectedYear]);
+    const newDate = selectedDay
+      ? new Date(selectedYear, selectedMonth, selectedDay)
+      : null;
+    setDate(newDate);
+  }, [selectedMonth, selectedYear, selectedDay, setDate]);
 
   const days = getDaysInMonth(selectedMonth, selectedYear);
 
@@ -26,7 +45,7 @@ export default function Calendar({}: Props) {
               name="months"
               id="months"
               value={selectedMonth}
-              onChange={(e) => setSelectedMonth(Number(e.target.value))}
+              onChange={(e) => handleMonthOrYearChange(e, setSelectedMonth)}
             >
               {MONTHS.map((month, i) => (
                 <option key={i} value={i}>
@@ -41,7 +60,7 @@ export default function Calendar({}: Props) {
             name="years"
             id="years"
             value={selectedYear}
-            onChange={(e) => setSelectedYear(Number(e.target.value))}
+            onChange={(e) => handleMonthOrYearChange(e, setSelectedYear)}
           >
             {/* everything is year, not indexes */}
             {years.map((year) => (

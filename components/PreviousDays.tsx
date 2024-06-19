@@ -1,5 +1,6 @@
-import { Notes } from "@/app/page";
+import { Notes, getDateKey } from "@/app/page";
 import Calendar from "./ui/Calendar";
+import { useState } from "react";
 
 interface Props {
   previousDays: Notes;
@@ -7,27 +8,32 @@ interface Props {
 
 export default function PreviousDays({ previousDays }: Props) {
   const asArray = Object.entries(previousDays);
+
+  const initialDate = new Date();
+  const [selectedDate, setSelectedDate] = useState<Date | null>(initialDate);
+  const selectedNote = selectedDate
+    ? previousDays[getDateKey(selectedDate)]
+    : null;
   return (
     <>
       {asArray.length ? (
         <section>
           <h2>Previous days</h2>
-          <Calendar />
-          {/* <input type="date" name="date" id="date" />
-    <h3>Note</h3>
-    <p>
-      Contradictions do not exist. Whenever you think that you are facing a
-      contradiction, check your premises. You will find that one of them is
-      wrong.
-    </p> */}
-          <ul>
+          <Calendar initialDate={initialDate} setDate={setSelectedDate} />
+          {selectedDate && (
+            <section>
+              <h3>Note on {selectedDate.toLocaleDateString()}</h3>
+              <p>{selectedNote}</p>
+            </section>
+          )}
+          {/* <ul>
             {asArray.map(([date, text]) => (
               <li key={date}>
                 <h3>{new Date(date).toLocaleDateString()}</h3>
                 <p>{text}</p>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </section>
       ) : (
         ""
