@@ -1,5 +1,4 @@
 import { Notes } from "@/app/page";
-import { Fragment } from "react";
 
 interface Props {
   previousDays: Notes;
@@ -19,12 +18,14 @@ export default function PreviousDays({ previousDays }: Props) {
       contradiction, check your premises. You will find that one of them is
       wrong.
     </p> */}
-          {asArray.map(([date, text]) => (
-            <Fragment key={date}>
-              <h3>{new Date(date).toLocaleDateString()}</h3>
-              <p>{text}</p>
-            </Fragment>
-          ))}
+          <ul>
+            {asArray.map(([date, text]) => (
+              <li key={date}>
+                <h3>{new Date(date).toLocaleDateString()}</h3>
+                <p>{text}</p>
+              </li>
+            ))}
+          </ul>
         </section>
       ) : (
         ""
