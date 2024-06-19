@@ -1,4 +1,4 @@
-import { ChangeEvent, UIEvent, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {}
 
@@ -7,6 +7,11 @@ export default function Calendar({}: Props) {
   const currentMonth = new Date().getMonth();
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [selectedYear, setSelectedYear] = useState(endYear);
+  const [selectedDay, setSelectedDay] = useState<null | number>(currentDay);
+
+  useEffect(() => {
+    setSelectedDay(null);
+  }, [selectedMonth, selectedYear]);
 
   const days = getDaysInMonth(selectedMonth, selectedYear);
 
@@ -21,7 +26,7 @@ export default function Calendar({}: Props) {
               name="months"
               id="months"
               value={selectedMonth}
-              onChange={(e) => setSelectedMonth(getNumericValue(e))}
+              onChange={(e) => setSelectedMonth(Number(e.target.value))}
             >
               {MONTHS.map((month, i) => (
                 <option key={i} value={i}>
@@ -36,7 +41,7 @@ export default function Calendar({}: Props) {
             name="years"
             id="years"
             value={selectedYear}
-            onChange={(e) => setSelectedYear(getNumericValue(e))}
+            onChange={(e) => setSelectedYear(Number(e.target.value))}
           >
             {/* everything is year, not indexes */}
             {years.map((year) => (
@@ -55,24 +60,35 @@ export default function Calendar({}: Props) {
         }}
       >
         {WEEK_DAYS.map((day) => (
-          <span className="body-large text-text-variant self-center" key={day}>
+          <span className="text-text-variant self-center" key={day}>
             {day.charAt(0)}
           </span>
         ))}
-        {days.map((day) => (
-          <span
-            className={`body-large size-10 flex items-center justify-center ${
-              selectedMonth === currentMonth && day.index === currentDay
-                ? "text-primary rounded-full border border-outline"
-                : ""
-            }`}
-            key={day.index}
-            // fortunately we don't need to use weekIndex, because cells are pushed anyway
-            style={{ gridColumn: `${day.weekDay + 1} / span 1` }}
-          >
-            {day.index}
-          </span>
-        ))}
+        {days.map((day) => {
+          const dayId = String(day.index);
+          const current =
+            selectedMonth === currentMonth && day.index === currentDay;
+          return (
+            <div
+              className={`relative rounded-full has-[:checked]:bg-primary has-[:checked]:text-text-primary has-[:checked]:border border-primary size-10 flex items-center justify-center ${
+                current && "text-primary border-outline"
+              }`}
+              key={day.index}
+              // fortunately we don't need to use weekIndex, because cells are pushed anyway
+              style={{ gridColumn: `${day.weekDay + 1} / span 1` }}
+            >
+              <label htmlFor={dayId}>{day.index}</label>
+              <input
+                checked={selectedDay === day.index}
+                onChange={(e) => setSelectedDay(Number(e.target.id))}
+                className="absolute inset-0 opacity-0 peer"
+                type="radio"
+                name="days"
+                id={dayId}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -121,9 +137,4 @@ function getDaysInMonth(monthIndex: number, year: number) {
     date.setDate(date.getDate() + 1);
   }
   return days;
-}
-
-function getNumericValue(e: ChangeEvent<HTMLSelectElement>): number {
-  const asNumber = Number(e.currentTarget.value);
-  return asNumber;
 }

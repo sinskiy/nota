@@ -15,7 +15,7 @@ const config: Config = {
       text: {
         DEFAULT: "var(--text)",
         variant: "var(--text-variant)",
-        primary: "var(--primary)",
+        primary: "var(--on-primary)",
       },
     },
     extend: {
