@@ -42,7 +42,7 @@ export default function Home() {
     localStorage.notes = JSON.stringify(newNotes);
   };
   return (
-    <main className="max-w-[75ch] m-auto px-4 py-8 grid gap-8">
+    <main className="max-w-[75ch] m-auto px-4 py-16 grid gap-8">
       {mounted ? (
         <>
           <DailyNote
@@ -54,9 +54,9 @@ export default function Home() {
         </>
       ) : (
         <div>
-          <Skeleton className="h-8 mb-4" />
-          <Skeleton />
-          <Skeleton className="h-10 mt-4 ml-auto w-32 rounded-large" />
+          <Skeleton className="h-6 mb-4" />
+          <Skeleton className="h-40" />
+          <Skeleton className="h-8 mt-2 ml-auto w-32 !rounded-large" />
         </div>
       )}
     </main>

@@ -1,6 +1,6 @@
 import { Notes, getDateKey } from "@/app/page";
 import Calendar from "./ui/Calendar";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 interface Props {
   previousDays: Notes;
@@ -14,26 +14,32 @@ export default function PreviousDays({ previousDays }: Props) {
   const selectedNote = selectedDate
     ? previousDays[getDateKey(selectedDate)]
     : null;
+
+  const dialogRef = useRef<HTMLDialogElement>(null);
   return (
     <>
       {asArray.length ? (
         <section>
           <h2>Previous days</h2>
-          <Calendar initialDate={initialDate} setDate={setSelectedDate} />
+          <button
+            onClick={() =>
+              dialogRef.current &&
+              (dialogRef.current.open
+                ? dialogRef.current.close()
+                : dialogRef.current.show())
+            }
+          >
+            {selectedDate?.toLocaleDateString() ?? "select date"}
+          </button>
+          <dialog ref={dialogRef} id="calendar">
+            <Calendar initialDate={initialDate} setDate={setSelectedDate} />
+          </dialog>
           {selectedDate && (
-            <section>
+            <section className="mt-6">
               <h3>Note on {selectedDate.toLocaleDateString()}</h3>
               <p>{selectedNote}</p>
             </section>
           )}
-          {/* <ul>
-            {asArray.map(([date, text]) => (
-              <li key={date}>
-                <h3>{new Date(date).toLocaleDateString()}</h3>
-                <p>{text}</p>
-              </li>
-            ))}
-          </ul> */}
         </section>
       ) : (
         ""

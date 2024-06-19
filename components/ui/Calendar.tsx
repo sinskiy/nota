@@ -72,7 +72,7 @@ export default function Calendar({ initialDate, setDate }: Props) {
         )}
       </div>
       <div
-        className="uppercase mt-6 text-center grid gap-4"
+        className="uppercase mt-6 text-center grid gap-2"
         style={{
           gridTemplateColumns: "repeat(7, min-content)",
           gridAutoRows: "2.5rem",
@@ -99,10 +99,12 @@ export default function Calendar({ initialDate, setDate }: Props) {
               <label htmlFor={dayId}>{day.index}</label>
               <input
                 checked={selectedDay === day.index}
-                onChange={(e) => setSelectedDay(Number(e.target.id))}
+                onChange={(e) =>
+                  setSelectedDay(e.target.checked ? Number(e.target.id) : null)
+                }
                 className="absolute inset-0 opacity-0 peer"
-                type="radio"
-                name="days"
+                type="checkbox"
+                name={dayId}
                 id={dayId}
               />
             </div>
