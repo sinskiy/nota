@@ -42,9 +42,11 @@ export default function PreviousDays({ previousDays }: Props) {
           {selectedDate && (
             <section className="mt-6">
               <h3>Note on {selectedDate.toLocaleDateString()}</h3>
-              <Markdown className="card p-8 prose prose-invert">
-                {selectedNote}
-              </Markdown>
+              <div className="w-full card p-8">
+                <Markdown className="prose prose-invert">
+                  {selectedNote}
+                </Markdown>
+              </div>
             </section>
           )}
         </section>
