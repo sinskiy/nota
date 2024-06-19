@@ -1,4 +1,5 @@
 import { Notes } from "@/app/page";
+import Calendar from "./ui/Calendar";
 
 interface Props {
   previousDays: Notes;
@@ -11,6 +12,7 @@ export default function PreviousDays({ previousDays }: Props) {
       {asArray.length ? (
         <section>
           <h2>Previous days</h2>
+          <Calendar />
           {/* <input type="date" name="date" id="date" />
     <h3>Note</h3>
     <p>
