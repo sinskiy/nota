@@ -26,9 +26,10 @@ body {
   color: var(--text);
 }
 
-h2 {
+section header {
   margin-bottom: 1rem;
-
+}
+h2 {
   font-size: 1.5rem;
   line-height: 1;
   font-weight: 400;
@@ -57,6 +58,43 @@ p,
     color: var(--text);
     border-radius: var(--rounded-main);
   }
+
+  .text-button {
+    width: fit-content;
+    padding: 0.5rem 3rem;
+
+    background-color: var(--primary);
+    color: var(--on-primary);
+
+    transition: filter 150ms, transform 100ms;
+  }
+  .text-button:hover {
+    filter: brightness(1.1);
+  }
+
+  .icon-button {
+    width: 2.5rem;
+    height: 2.5rem;
+
+    color: var(--text);
+
+    transition: background-color 150ms, transform 100ms;
+  }
+  .icon-button:hover {
+    background-color: var(--surface);
+  }
+}
+
+button {
+  border-radius: var(--rounded-large);
+
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.1px;
+  font-weight: 500;
+}
+button:active {
+  transform: scale(0.95);
 }
 
 textarea {
@@ -72,28 +110,6 @@ textarea::placeholder {
 textarea:focus {
   border: none;
   outline: 1px solid var(--primary);
-}
-
-button {
-  width: fit-content;
-  padding: 0.5rem 3rem;
-
-  background-color: var(--primary);
-  color: var(--on-primary);
-  border-radius: var(--rounded-large);
-
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  letter-spacing: 0.1px;
-  font-weight: 500;
-
-  transition: filter 150ms, transform 100ms;
-}
-button:hover {
-  filter: brightness(1.1);
-}
-button:active {
-  transform: scale(0.95);
 }
 
 select {

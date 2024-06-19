@@ -21,7 +21,9 @@ export default function PreviousDays({ previousDays }: Props) {
     <>
       {dates.length ? (
         <section>
-          <h2>Previous days</h2>
+          <header>
+            <h2>Previous days</h2>
+          </header>
           <button
             onClick={() =>
               dialogRef.current &&
@@ -29,6 +31,7 @@ export default function PreviousDays({ previousDays }: Props) {
                 ? dialogRef.current.close()
                 : dialogRef.current.show())
             }
+            className="text-button"
           >
             {selectedDate?.toLocaleDateString() ?? "select date"}
           </button>

@@ -1,4 +1,5 @@
 import { HandleTodayTextSubmit } from "@/app/page";
+import { useRef } from "react";
 
 interface Props {
   todayText: string;
@@ -15,9 +16,36 @@ export default function DailyNote({
   handleTodayTextSubmit,
 }: Props) {
   const textareaID = "daily";
+
+  const settingsRef = useRef<HTMLDialogElement>(null);
   return (
     <section>
-      <h2>Daily note</h2>
+      <header className="grid grid-cols-1 grid-flow-col items-center">
+        <h2>Daily note</h2>
+        <button
+          onClick={() => settingsRef.current?.showModal()}
+          className="icon-button"
+        >
+          ⚙
+        </button>
+        <dialog ref={settingsRef} className="card p-8">
+          <section>
+            <header>
+              <h2>todo</h2>
+            </header>
+            {/* <textarea
+              className="card"
+              rows={6}
+              name="template"
+              id="template"
+            ></textarea> */}
+          </section>
+          <form action="" method="dialog" className="flex gap-4 mt-8">
+            {/* <button className="text-button">Save</button> */}
+            <button className="text-button">Close</button>
+          </form>
+        </dialog>
+      </header>
       <form
         action=""
         method="get"
@@ -35,7 +63,7 @@ export default function DailyNote({
           name={textareaID}
           id={textareaID}
         ></textarea>
-        <button type="submit" className="justify-self-end">
+        <button type="submit" className="justify-self-end text-button">
           Save
         </button>
       </form>
