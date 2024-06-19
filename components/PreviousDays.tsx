@@ -1,5 +1,6 @@
 import { Notes, getDateKey } from "@/app/page";
 import Calendar from "./ui/Calendar";
+import Markdown from "react-markdown";
 import { useRef, useState } from "react";
 
 interface Props {
@@ -41,7 +42,9 @@ export default function PreviousDays({ previousDays }: Props) {
           {selectedDate && (
             <section className="mt-6">
               <h3>Note on {selectedDate.toLocaleDateString()}</h3>
-              <p>{selectedNote}</p>
+              <Markdown className="card p-8 prose prose-invert">
+                {selectedNote}
+              </Markdown>
             </section>
           )}
         </section>

@@ -37,9 +37,8 @@ export default function Calendar({ initialDate, setDate, enabled }: Props) {
   const days = getDaysInMonth(selectedMonth, selectedYear);
 
   return (
-    <div className="card p-8 w-fit">
+    <div className="card py-8 w-fit">
       <div className="flex gap-8">
-        {/* TODO: use user's months and days  */}
         {MONTHS.length > 1 && (
           <>
             {/* value and key are indexes, child is string */}
