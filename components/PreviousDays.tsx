@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function PreviousDays({ previousDays }: Props) {
-  const asArray = Object.entries(previousDays);
+  const dates = Object.keys(previousDays);
 
   const initialDate = new Date();
   const [selectedDate, setSelectedDate] = useState<Date | null>(initialDate);
@@ -18,7 +18,7 @@ export default function PreviousDays({ previousDays }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   return (
     <>
-      {asArray.length ? (
+      {dates.length ? (
         <section>
           <h2>Previous days</h2>
           <button
@@ -32,7 +32,11 @@ export default function PreviousDays({ previousDays }: Props) {
             {selectedDate?.toLocaleDateString() ?? "select date"}
           </button>
           <dialog ref={dialogRef} id="calendar">
-            <Calendar initialDate={initialDate} setDate={setSelectedDate} />
+            <Calendar
+              initialDate={initialDate}
+              setDate={setSelectedDate}
+              enabled={dates}
+            />
           </dialog>
           {selectedDate && (
             <section className="mt-6">

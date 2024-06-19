@@ -1,11 +1,13 @@
+import { getDateKey } from "@/app/page";
 import { ChangeEvent, useEffect, useState } from "react";
 
 interface Props {
   initialDate: Date;
   setDate: SetState<Date | null>;
+  enabled: string[];
 }
 
-export default function Calendar({ initialDate, setDate }: Props) {
+export default function Calendar({ initialDate, setDate, enabled }: Props) {
   const currentDay = new Date().getDate();
   const currentMonth = new Date().getMonth();
 
@@ -55,24 +57,22 @@ export default function Calendar({ initialDate, setDate }: Props) {
             </select>
           </>
         )}
-        {years.length > 1 && (
-          <select
-            name="years"
-            id="years"
-            value={selectedYear}
-            onChange={(e) => handleMonthOrYearChange(e, setSelectedYear)}
-          >
-            {/* everything is year, not indexes */}
-            {years.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-        )}
+        <select
+          name="years"
+          id="years"
+          value={selectedYear}
+          onChange={(e) => handleMonthOrYearChange(e, setSelectedYear)}
+        >
+          {/* everything is year, not indexes */}
+          {years.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
       </div>
       <div
-        className="uppercase mt-6 text-center grid gap-2"
+        className="uppercase mt-6 text-center grid gap-x-2"
         style={{
           gridTemplateColumns: "repeat(7, min-content)",
           gridAutoRows: "2.5rem",
@@ -87,9 +87,12 @@ export default function Calendar({ initialDate, setDate }: Props) {
           const dayId = String(day.index);
           const current =
             selectedMonth === currentMonth && day.index === currentDay;
+
+          const dayData = new Date(selectedYear, selectedMonth, day.index);
+          const dayKey = getDateKey(dayData);
           return (
             <div
-              className={`relative rounded-full has-[:checked]:bg-primary has-[:checked]:text-text-primary has-[:checked]:border border-primary size-10 flex items-center justify-center ${
+              className={`relative rounded-full has-[:disabled]:opacity-50 has-[:checked]:bg-primary has-[:checked]:text-text-primary has-[:checked]:border border-primary size-10 flex items-center justify-center ${
                 current && "text-primary border-outline"
               }`}
               key={day.index}
@@ -102,6 +105,7 @@ export default function Calendar({ initialDate, setDate }: Props) {
                 onChange={(e) =>
                   setSelectedDay(e.target.checked ? Number(e.target.id) : null)
                 }
+                disabled={!enabled.includes(dayKey)}
                 className="absolute inset-0 opacity-0 peer"
                 type="checkbox"
                 name={dayId}
