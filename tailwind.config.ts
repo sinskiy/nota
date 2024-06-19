@@ -10,6 +10,7 @@ const config: Config = {
     colors: {
       background: "var(--background)",
       surface: "var(--surface)",
+      outline: "var(--outline)",
       primary: "var(--primary)",
       text: {
         DEFAULT: "var(--text)",

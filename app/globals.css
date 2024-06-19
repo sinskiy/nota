@@ -7,6 +7,7 @@
 
   --background: black;
   --surface: #11140f;
+  --outline: #8c9387;
   --text: #e1e4da;
   --text-variant: #c2c8bc;
   --primary: #a4d397;
@@ -40,19 +41,22 @@ h3 {
   letter-spacing: 0.15px;
   font-weight: 500;
 }
-p {
+p,
+.body-large {
   font-size: 1rem;
   line-height: 1.5;
   letter-spacing: 0.5px;
   font-weight: 400;
 }
 
-.card {
-  padding: 1rem;
+@layer components {
+  .card {
+    padding: 1rem;
 
-  background-color: var(--surface);
-  color: var(--text);
-  border-radius: var(--rounded-main);
+    background-color: var(--surface);
+    color: var(--text);
+    border-radius: var(--rounded-main);
+  }
 }
 
 textarea {
@@ -93,7 +97,10 @@ button:active {
 }
 
 select {
-  background-color: transparent;
   width: 5rem;
+
+  background-color: transparent;
+  color: var(--text-variant);
+
   text-align: center;
 }

@@ -3,6 +3,7 @@ import { ChangeEvent, UIEvent, useState } from "react";
 interface Props {}
 
 export default function Calendar({}: Props) {
+  const currentDay = new Date().getDate();
   const currentMonth = new Date().getMonth();
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [selectedYear, setSelectedYear] = useState(endYear);
@@ -10,47 +11,61 @@ export default function Calendar({}: Props) {
   const days = getDaysInMonth(selectedMonth, selectedYear);
 
   return (
-    <div className="card">
+    <div className="card p-8 w-fit">
       <div className="flex gap-8">
-        {/* value and key are indexes, child is string */}
-        <select
-          name="months"
-          id="months"
-          value={selectedMonth}
-          onChange={(e) => setSelectedMonth(getNumericValue(e))}
-        >
-          {MONTHS.map((month, i) => (
-            <option key={i} value={i}>
-              {month}
-            </option>
-          ))}
-        </select>
-        <select
-          name="years"
-          id="years"
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(getNumericValue(e))}
-        >
-          {/* everything is year, not indexes */}
-          {years.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
+        {/* TODO: use user's months and days  */}
+        {MONTHS.length > 1 && (
+          <>
+            {/* value and key are indexes, child is string */}
+            <select
+              name="months"
+              id="months"
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(getNumericValue(e))}
+            >
+              {MONTHS.map((month, i) => (
+                <option key={i} value={i}>
+                  {month}
+                </option>
+              ))}
+            </select>
+          </>
+        )}
+        {years.length > 1 && (
+          <select
+            name="years"
+            id="years"
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(getNumericValue(e))}
+          >
+            {/* everything is year, not indexes */}
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
       <div
-        className="uppercase mt-8 text-center"
+        className="uppercase mt-6 text-center grid gap-4"
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(7, 1fr)",
+          gridTemplateColumns: "repeat(7, min-content)",
+          gridAutoRows: "2.5rem",
         }}
       >
         {WEEK_DAYS.map((day) => (
-          <span key={day}>{day.charAt(0)}</span>
+          <span className="body-large text-text-variant self-center" key={day}>
+            {day.charAt(0)}
+          </span>
         ))}
         {days.map((day) => (
           <span
+            className={`body-large size-10 flex items-center justify-center ${
+              selectedMonth === currentMonth && day.index === currentDay
+                ? "text-primary rounded-full border border-outline"
+                : ""
+            }`}
             key={day.index}
             // fortunately we don't need to use weekIndex, because cells are pushed anyway
             style={{ gridColumn: `${day.weekDay + 1} / span 1` }}
@@ -78,7 +93,7 @@ const MONTHS = [
   "dec",
 ] as const;
 
-const START_YEAR: number = new Date(0).getFullYear();
+const START_YEAR: number = 2024;
 const endYear: number = new Date().getFullYear();
 const years: number[] = [];
 
