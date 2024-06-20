@@ -8,13 +8,14 @@ export type DeleteTemplate = (templateIndex: number) => void;
 
 export default function Settings({}: Props) {
   const [templates, setTemplates] = useState<string[]>([]);
+  const [defaultTemplate, setDefaultTemplate] = useState(0);
   useEffect(() => {
     const savedTemplates = localStorage.getItem("templates");
     savedTemplates && setTemplates(JSON.parse(savedTemplates));
+
+    const savedDefaultTemplate = localStorage.getItem("defaultTemplate");
+    savedDefaultTemplate && setDefaultTemplate(Number(savedDefaultTemplate));
   }, []);
-  function saveTemplates() {
-    localStorage.setItem("templates", JSON.stringify(templates));
-  }
 
   const setTemplate: SetTemplate = (newTemplate, templateIndex) => {
     const newTemplates = templates.map((template, i) => {
@@ -32,6 +33,11 @@ export default function Settings({}: Props) {
   const deleteTemplate: DeleteTemplate = (templateIndex) => {
     setTemplates(templates.filter((template, i) => templateIndex !== i));
   };
+
+  function updateStorage() {
+    localStorage.setItem("templates", JSON.stringify(templates));
+    localStorage.setItem("defaultTemplate", String(defaultTemplate));
+  }
   return (
     <div className="card p-8">
       <section>
@@ -43,6 +49,8 @@ export default function Settings({}: Props) {
             <SettingsTemplate
               template={template}
               index={i}
+              defaultTemplate={defaultTemplate}
+              setDefaultTemplate={setDefaultTemplate}
               setTemplate={setTemplate}
               deleteTemplate={deleteTemplate}
               key={i}
@@ -54,7 +62,7 @@ export default function Settings({}: Props) {
         </button>
       </section>
       <form action="" method="dialog" className="flex gap-4 mt-8">
-        <button onClick={saveTemplates} className="text-button">
+        <button onClick={updateStorage} className="text-button">
           Save
         </button>
         <button className="text-button">Close</button>

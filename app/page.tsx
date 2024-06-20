@@ -26,8 +26,17 @@ export default function Home() {
     if (todayKey in parsedNotes) {
       setTodayText(parsedNotes[todayKey]);
     } else {
-      const savedTemplate = localStorage.getItem("template");
-      savedTemplate && setTodayText(savedTemplate);
+      const savedTemplates = localStorage.getItem("templates");
+      if (!savedTemplates) return;
+      const parsedTemplates = JSON.parse(savedTemplates);
+      if (!parsedTemplates.length) return;
+
+      const savedDefaultTemplate = localStorage.getItem("defaultTemplate");
+      if (savedDefaultTemplate) {
+        setTodayText(parsedTemplates[Number(savedDefaultTemplate)]);
+      } else {
+        setTodayText(parsedTemplates[0]);
+      }
     }
 
     setMounted(true);

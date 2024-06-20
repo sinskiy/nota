@@ -3,6 +3,8 @@ import { DeleteTemplate, SetTemplate } from "./Settings";
 interface Props {
   template: string;
   index: number;
+  defaultTemplate: number;
+  setDefaultTemplate: SetState<number>;
   setTemplate: SetTemplate;
   deleteTemplate: DeleteTemplate;
 }
@@ -10,6 +12,8 @@ interface Props {
 export default function SettingsTemplate({
   template,
   index,
+  defaultTemplate,
+  setDefaultTemplate,
   setTemplate,
   deleteTemplate,
 }: Props) {
@@ -38,6 +42,8 @@ export default function SettingsTemplate({
         <div className="relative text-button">
           <label htmlFor={index + "-template-default"}>default</label>
           <input
+            checked={defaultTemplate === index}
+            onChange={() => setDefaultTemplate(index)}
             className="absolute inset-0 opacity-0"
             type="radio"
             id={index + "-template-default"}
