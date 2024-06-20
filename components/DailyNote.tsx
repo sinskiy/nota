@@ -26,7 +26,10 @@ export default function DailyNote({
   return (
     <section>
       <header className="grid grid-cols-1 grid-flow-col items-center">
-        <h2>Daily note</h2>
+        <hgroup>
+          <h2>Daily note</h2>
+          <small>Tip: use markdown</small>
+        </hgroup>
         <button
           onClick={() => settingsRef.current?.showModal()}
           className="icon-button"
