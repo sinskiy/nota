@@ -63,7 +63,11 @@ export default function DailyNote({
             Override with template
           </button>
           <dialog ref={chooseTemplateRef}>
-            <ChooseTemplate templates={templates} setTodayText={setTodayText} />
+            <ChooseTemplate
+              dialogRef={chooseTemplateRef}
+              templates={templates}
+              setTodayText={setTodayText}
+            />
           </dialog>
           <button type="submit" className="text-button">
             Save

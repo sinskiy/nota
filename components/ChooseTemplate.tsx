@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { RefObject, useState } from "react";
 
 interface Props {
+  dialogRef: RefObject<HTMLDialogElement>;
   templates: string[];
   setTodayText: SetState<string>;
 }
 
-export default function ChooseTemplate({ templates, setTodayText }: Props) {
+export default function ChooseTemplate({
+  dialogRef,
+  templates,
+  setTodayText,
+}: Props) {
   const [chosenTemplate, setChosenTemplate] = useState(0);
 
   return (
@@ -35,18 +40,18 @@ export default function ChooseTemplate({ templates, setTodayText }: Props) {
           </li>
         ))}
       </ul>
-      <form action="" method="dialog" className="flex gap-2">
-        <button
-          onClick={() => setTodayText(templates[chosenTemplate])}
-          type="submit"
-          className="text-button mt-4"
-        >
-          Save
-        </button>
-        <button type="submit" className="outlined-button mt-4">
-          Close
-        </button>
-      </form>
+      <button
+        onClick={() => setTodayText(templates[chosenTemplate])}
+        className="text-button mt-4 mr-2"
+      >
+        Save
+      </button>
+      <button
+        className="outlined-button mt-4"
+        onClick={() => dialogRef.current?.close()}
+      >
+        Close
+      </button>
     </div>
   );
 }
