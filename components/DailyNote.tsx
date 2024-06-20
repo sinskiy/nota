@@ -1,5 +1,6 @@
 import { HandleTodayTextSubmit } from "@/app/page";
 import { useRef } from "react";
+import Settings from "./Settings";
 
 interface Props {
   todayText: string;
@@ -28,22 +29,8 @@ export default function DailyNote({
         >
           ⚙
         </button>
-        <dialog ref={settingsRef} className="card p-8">
-          <section>
-            <header>
-              <h2>todo</h2>
-            </header>
-            {/* <textarea
-              className="card"
-              rows={6}
-              name="template"
-              id="template"
-            ></textarea> */}
-          </section>
-          <form action="" method="dialog" className="flex gap-4 mt-8">
-            {/* <button className="text-button">Save</button> */}
-            <button className="text-button">Close</button>
-          </form>
+        <dialog ref={settingsRef}>
+          <Settings />
         </dialog>
       </header>
       <form
