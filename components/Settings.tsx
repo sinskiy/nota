@@ -5,16 +5,17 @@ interface Props {}
 export default function Settings({}: Props) {
   const [template, setTemplate] = useState("");
   useEffect(() => {
-    setTemplate(localStorage.template);
+    const savedTemplate = localStorage.getItem("template");
+    savedTemplate && setTemplate(savedTemplate);
   }, []);
   function saveTemplate() {
-    localStorage.template = template;
+    localStorage.setItem("template", template);
   }
   return (
     <div className="card p-8">
       <section>
         <header>
-          <h2>todo</h2>
+          <h2>Template</h2>
         </header>
         <textarea
           value={template}

@@ -42,7 +42,7 @@ export default function PreviousDays({ previousDays }: Props) {
               enabled={dates}
             />
           </dialog>
-          {selectedDate && (
+          {selectedDate && selectedNote && (
             <section className="mt-6">
               <h3>Note on {selectedDate.toLocaleDateString()}</h3>
               <div className="w-full card p-8">

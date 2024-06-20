@@ -18,13 +18,16 @@ export default function Home() {
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
-    const savedNotes = localStorage.notes;
+    const savedNotes = localStorage.getItem("notes");
     const parsedNotes = savedNotes ? JSON.parse(savedNotes) : [];
     setNotes(parsedNotes);
 
     const todayKey = getDateKey();
     if (todayKey in parsedNotes) {
       setTodayText(parsedNotes[todayKey]);
+    } else {
+      const savedTemplate = localStorage.getItem("template");
+      savedTemplate && setTodayText(savedTemplate);
     }
 
     setMounted(true);
@@ -39,7 +42,7 @@ export default function Home() {
 
     const newNotes = { ...notes, [todayKey]: todayText };
     setNotes(newNotes);
-    localStorage.notes = JSON.stringify(newNotes);
+    localStorage.setItem("notes", JSON.stringify(newNotes));
   };
   return (
     <main className="max-w-[75ch] m-auto px-4 py-16 grid gap-8">
