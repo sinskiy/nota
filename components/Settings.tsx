@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import SettingsTemplate from "./SettingsTemplate";
 
-interface Props {}
+interface Props {
+  templates: string[];
+  setTemplates: SetState<Props["templates"]>;
+}
 
 export type SetTemplate = (newTemplate: string, templateIndex: number) => void;
 export type DeleteTemplate = (templateIndex: number) => void;
 
-export default function Settings({}: Props) {
-  const [templates, setTemplates] = useState<string[]>([]);
+export default function Settings({ templates, setTemplates }: Props) {
   const [defaultTemplate, setDefaultTemplate] = useState(0);
   useEffect(() => {
     const savedTemplates = localStorage.getItem("templates");
@@ -15,7 +17,7 @@ export default function Settings({}: Props) {
 
     const savedDefaultTemplate = localStorage.getItem("defaultTemplate");
     savedDefaultTemplate && setDefaultTemplate(Number(savedDefaultTemplate));
-  }, []);
+  }, [setTemplates]);
 
   const setTemplate: SetTemplate = (newTemplate, templateIndex) => {
     const newTemplates = templates.map((template, i) => {

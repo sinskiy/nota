@@ -1,6 +1,7 @@
 import { HandleTodayTextSubmit } from "@/app/page";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Settings from "./Settings";
+import ChooseTemplate from "./ChooseTemplate";
 
 interface Props {
   todayText: string;
@@ -16,9 +17,12 @@ export default function DailyNote({
   setTodayText,
   handleTodayTextSubmit,
 }: Props) {
+  const [templates, setTemplates] = useState<string[]>([]);
+
   const textareaID = "daily";
 
   const settingsRef = useRef<HTMLDialogElement>(null);
+  const chooseTemplateRef = useRef<HTMLDialogElement>(null);
   return (
     <section>
       <header className="grid grid-cols-1 grid-flow-col items-center">
@@ -30,7 +34,7 @@ export default function DailyNote({
           ⚙
         </button>
         <dialog ref={settingsRef}>
-          <Settings />
+          <Settings templates={templates} setTemplates={setTemplates} />
         </dialog>
       </header>
       <form
@@ -50,9 +54,21 @@ export default function DailyNote({
           name={textareaID}
           id={textareaID}
         ></textarea>
-        <button type="submit" className="justify-self-end text-button">
-          Save
-        </button>
+        <div className="justify-self-end flex gap-2">
+          <button
+            onClick={() => chooseTemplateRef.current?.showModal()}
+            type="button"
+            className="outlined-button"
+          >
+            Override with template
+          </button>
+          <dialog ref={chooseTemplateRef}>
+            <ChooseTemplate templates={templates} setTodayText={setTodayText} />
+          </dialog>
+          <button type="submit" className="text-button">
+            Save
+          </button>
+        </div>
       </form>
     </section>
   );
