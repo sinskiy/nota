@@ -70,12 +70,35 @@ p,
 
     transition: filter 150ms, transform 100ms;
   }
-  .text-button:has(input:not(:checked)) {
-    background-color: var(--on-surface);
-    color: var(--text);
-  }
   .text-button:hover {
     filter: brightness(1.1);
+  }
+
+  .outlined-button {
+    width: fit-content;
+    padding: 0.5rem 3rem;
+
+    border: 1px solid var(--outline);
+    color: var(--primary);
+    border-radius: var(--rounded-large);
+
+    transition: filter 150ms, transform 100ms;
+  }
+  .outlined-button:has(:checked) {
+    border: 1px solid var(--primary);
+    background-color: var(--primary);
+    color: var(--on-primary);
+  }
+
+  .input-button {
+    width: fit-content;
+    padding: 0.5rem 3rem;
+    border: 1px solid var(--outline);
+
+    border-radius: var(--rounded-main);
+  }
+  .input-button:focus {
+    border: 1px solid var(--primary);
   }
 
   .icon-button {

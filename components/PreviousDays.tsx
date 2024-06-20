@@ -31,7 +31,7 @@ export default function PreviousDays({ previousDays }: Props) {
                 ? dialogRef.current.close()
                 : dialogRef.current.show())
             }
-            className="text-button"
+            className="input-button"
           >
             {selectedDate?.toLocaleDateString() ?? "select date"}
           </button>

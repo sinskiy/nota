@@ -57,7 +57,7 @@ export default function Settings({}: Props) {
             />
           ))}
         </ul>
-        <button className="text-button mt-4" onClick={addTemplate}>
+        <button className="outlined-button mt-4" onClick={addTemplate}>
           Add new template
         </button>
       </section>
@@ -65,7 +65,7 @@ export default function Settings({}: Props) {
         <button onClick={updateStorage} className="text-button">
           Save
         </button>
-        <button className="text-button">Close</button>
+        <button className="outlined-button">Close</button>
       </form>
     </div>
   );
