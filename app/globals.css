@@ -66,8 +66,13 @@ p,
 
     background-color: var(--primary);
     color: var(--on-primary);
+    border-radius: var(--rounded-large);
 
     transition: filter 150ms, transform 100ms;
+  }
+  .text-button:has(input:not(:checked)) {
+    background-color: var(--on-surface);
+    color: var(--text);
   }
   .text-button:hover {
     filter: brightness(1.1);
@@ -77,18 +82,39 @@ p,
     width: 2.5rem;
     height: 2.5rem;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: var(--rounded-large);
     color: var(--text);
 
     transition: background-color 150ms, transform 100ms;
   }
   .icon-button:hover {
-    background-color: var(--surface);
+    background-color: var(--on-surface);
+  }
+
+  .tag {
+    width: fit-content;
+    padding: 0.25rem 1rem;
+
+    background-color: var(--on-surface);
+    color: var(--text);
+    border-radius: var(--rounded-large);
+
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.25px;
+    font-weight: 400;
+  }
+  .tag:has(:checked) {
+    background-color: var(--primary);
+    color: var(--on-primary);
   }
 }
 
 button {
-  border-radius: var(--rounded-large);
-
   font-size: 0.875rem;
   line-height: 1.25rem;
   letter-spacing: 0.1px;

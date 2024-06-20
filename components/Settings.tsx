@@ -36,7 +36,7 @@ export default function Settings({}: Props) {
     <div className="card p-8">
       <section>
         <header>
-          <h2>Template</h2>
+          <h2>Templates</h2>
         </header>
         <ul>
           {templates.map((template, i) => (
