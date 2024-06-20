@@ -1,4 +1,4 @@
-import { Notes, getDateKey } from "@/app/page";
+import { Notes } from "@/app/page";
 import Calendar from "./ui/Calendar";
 import Markdown from "react-markdown";
 import { useRef, useState } from "react";
@@ -58,4 +58,8 @@ export default function PreviousDays({ previousDays }: Props) {
       )}
     </>
   );
+}
+
+export function getDateKey(date?: Date): string {
+  return new Date(date ?? Date.now()).toDateString();
 }

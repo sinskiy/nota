@@ -1,5 +1,5 @@
-import { getDateKey } from "@/app/page";
 import { ChangeEvent, useEffect, useState } from "react";
+import { getDateKey } from "../PreviousDays";
 
 interface Props {
   initialDate: Date;

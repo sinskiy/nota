@@ -1,7 +1,7 @@
 "use client";
 
 import DailyNote from "@/components/DailyNote";
-import PreviousDays from "@/components/PreviousDays";
+import PreviousDays, { getDateKey } from "@/components/PreviousDays";
 import Skeleton from "@/components/ui/Skeleton";
 import { FormEventHandler, useEffect, useState } from "react";
 
@@ -73,8 +73,4 @@ export default function Home() {
       )}
     </main>
   );
-}
-
-export function getDateKey(date?: Date): string {
-  return new Date(date ?? Date.now()).toDateString();
 }
